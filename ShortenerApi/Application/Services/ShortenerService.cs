@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using ShortenerApi.Domain.Entities;
 using ShortenerApi.Domain.Interfaces;
 using System.Net;
@@ -22,20 +20,11 @@ namespace ShortenerApi.Application.Services
                 throw new ArgumentException("Original URL cannot be empty.");
 
             var shortCode = WebUtility.UrlEncode(originalUrl);
-            var shortUrl = new ShortUrl
-            {
-                OriginalUrl = originalUrl,
-                ShortCode = shortCode,
-                CreatedAt = DateTime.UtcNow
-            };
+            var shortUrl = new ShortUrl(originalUrl, shortCode);
 
             await _shortUrlRepository.AddAsync(shortUrl);
 
-            return new ShortUrl
-            {
-                OriginalUrl = shortUrl.OriginalUrl,
-                ShortCode = shortUrl.ShortCode
-            };
+            return new ShortUrl(originalUrl, shortCode);
         }
 
         public async Task<string> RedirectToOriginal(string shortCode)

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using ShortenerApi.Application.Interfaces;
 
 namespace ShortenerApi.Presentation.Controllers
 {
@@ -6,18 +7,42 @@ namespace ShortenerApi.Presentation.Controllers
     [Route("api/[controller]")]
     public class ShortenerController : ControllerBase
     {
+        private readonly ILogger<ShortenerController> _logger;
+        private readonly IShortenerService _shortenerService;
+        public ShortenerController(ILogger<ShortenerController> logger, IShortenerService shortenerService)
+        {
+            _logger = logger;
+            _shortenerService = shortenerService;
+        }
+
         [HttpPost("shorten")]
         public async Task<IActionResult> ShortenUrl([FromBody] string originalUrl)
         {
-            var shortUrl = $"https://sho.rt/{Guid.NewGuid().ToString().Substring(0, 8)}";
-            return Ok(new { originalUrl, shortUrl });
+            try
+            {
+                await _shortenerService.ShortenUrl(originalUrl);
+                return Ok(); 
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Shortening URL failed");
+                return Ok();
+            }
         }
 
         [HttpGet("{shortCode}")]
         public async Task<IActionResult> RedirectToOriginal(string shortCode)
         {
-            var originalUrl = "https://mail.google.com/mail/u/0/#inbox/FMfcgzQcpdpfdhTLkMnNrrpSWrtsqRhW";
-            return Redirect(originalUrl);
+            try
+            {
+                var shortUrl = await _shortenerService.RedirectToOriginal(shortCode);
+                return Redirect(shortUrl); 
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Cannot find original URL to redirect");
+                return Ok();
+            }
         }
     }
 }

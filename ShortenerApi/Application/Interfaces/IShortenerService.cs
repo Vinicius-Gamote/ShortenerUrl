@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using ShortenerApi.Domain.Entities;
 
 namespace ShortenerApi.Application.Interfaces

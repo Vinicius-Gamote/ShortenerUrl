@@ -27,6 +27,9 @@ namespace ShortenerApi.Infrastructure.Data
                       .HasMaxLength(20);
                 entity.Property(e => e.CreatedAt)
                       .IsRequired();
+                entity.Property(e => e.ExpiryDate);
+                entity.Property(e => e.VisitCount)
+                      .HasDefaultValue(0);
             });
         }
     }
