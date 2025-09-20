@@ -1,17 +1,17 @@
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:17
     container_name: pg_container
     environment:
-      POSTGRES_USER: docker
-      POSTGRES_PASSWORD: docker
-      POSTGRES_DB: docker
+      POSTGRES_USER: gamote
+      POSTGRES_PASSWORD: testPassword
+      POSTGRES_DB: shortener
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - docker_pg_data:/var/lib/postgresql/data
     networks:
-      - pgnetwork
+      - public-network
 
   pgadmin:
     image: dpage/pgadmin4:latest
@@ -24,10 +24,11 @@ services:
     depends_on:
       - postgres
     networks:
-      - pgnetwork
+      - public-network
 
 volumes:
   docker_pg_data:
 
 networks:
-  pgnetwork:
+  public-network:
+    driver: bridge
