@@ -24,7 +24,7 @@ namespace ShortenerApi.Infrastructure.Data
                       .HasMaxLength(2048);
                 entity.Property(e => e.ShortCode)
                       .IsRequired()
-                      .HasMaxLength(20);
+                      .HasMaxLength(100);
                 entity.Property(e => e.CreatedAt)
                       .IsRequired();
                 entity.Property(e => e.ExpiryDate);

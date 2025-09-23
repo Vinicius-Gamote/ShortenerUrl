@@ -11,7 +11,7 @@ services:
     volumes:
       - docker_pg_data:/var/lib/postgresql/data
     networks:
-      - public-network
+      - app-network
 
   pgadmin:
     image: dpage/pgadmin4:latest
@@ -24,11 +24,25 @@ services:
     depends_on:
       - postgres
     networks:
-      - public-network
+      - app-network
+
+  shortenerapi:
+      build: .
+      container_name: shortenerapi
+      ports:
+        - "7000:7000"
+      environment:
+        ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=shortener;Username=gamote;Password=testPassword"
+      depends_on:
+        - postgres
+      networks:
+        - app-network
 
 volumes:
   docker_pg_data:
 
 networks:
   public-network:
+    driver: bridge
+  app-network:
     driver: bridge

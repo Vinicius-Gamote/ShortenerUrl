@@ -10,7 +10,7 @@ namespace ShortenerApi.Infrastructure.Data.Models
         public Guid Id { get; set; }
         [Required, MaxLength(2048)]
         public string OriginalUrl { get; set; }
-        [Required, MaxLength(20)]
+        [Required, MaxLength(100)]
         public string ShortCode { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? ExpiryDate { get; set; }
