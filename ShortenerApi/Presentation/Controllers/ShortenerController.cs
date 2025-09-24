@@ -20,8 +20,8 @@ namespace ShortenerApi.Presentation.Controllers
         {
             try
             {
-                await _shortenerService.ShortenUrl(originalUrl);
-                return Ok(); 
+                var shortCode = await _shortenerService.ShortenUrl(originalUrl);
+                return Ok($"URL shortened successfully: {shortCode.ShortCode}"); 
             }
             catch (Exception ex)
             {
@@ -30,7 +30,7 @@ namespace ShortenerApi.Presentation.Controllers
             }
         }
 
-        [HttpGet("{shortCode}")]
+        [HttpGet("/{shortCode}")]
         public async Task<IActionResult> RedirectToOriginal(string shortCode)
         {
             try

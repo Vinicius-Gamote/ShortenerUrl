@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ShortenerApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+35688ad65421885392b19c2f161ce762970a6b78")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3631748b2c41f590ebd552537c9f436535715845")]
 [assembly: System.Reflection.AssemblyProductAttribute("ShortenerApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ShortenerApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
